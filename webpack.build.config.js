@@ -3,7 +3,11 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 
 module.exports = {
-    entry: './src/index.js',
+    entry: ['./src/index.js'],
+    output: {
+        filename: 'bundle.js',
+        path: __dirname + '/build'
+    },
     module: {
         rules: [
             {
@@ -15,7 +19,12 @@ module.exports = {
     },
     target: 'electron-renderer',
     plugins: [
-        new HtmlWebpackPlugin(),
+        new HtmlWebpackPlugin({
+            title: 'Parser',
+            filename: 'index.html',
+            template:  __dirname + '/src/index.html',
+            inject: 'body'
+        }),
         new webpack.DefinePlugin({
             'process.env.NODE_ENV': JSON.stringify('production')
         })

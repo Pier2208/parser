@@ -1,12 +1,16 @@
 {
-  "name": "parser",
-  "version": "1.0.0",
+  "name": "ci-parser",
+  "version": "2.0.0",
   "description": "Content Injection Parser",
   "main": "main/index.js",
   "scripts": {
     "dev": "webpack-dev-server --hot --config webpack.dev.config.js --mode development",
-    "build": "webpack --config webpack.build.config.js --mode production & electron-builder -w"
+    "electron": "electron .",
+    "build": "webpack --config webpack.build.config.js --mode production",
+    "package": "npm run build && electron-builder -w"
   },
+  "repository": "https://github.com/Pier2208/parser.git",
+  "homepage": "https://github.com/Pier2208/parser.git",
   "author": "Pierrick Le Roy",
   "license": "ISC",
   "devDependencies": {
@@ -27,6 +31,7 @@
     "@fortawesome/free-solid-svg-icons": "^5.11.2",
     "@fortawesome/react-fontawesome": "^0.1.7",
     "electron-devtools-installer": "^2.2.4",
+    "electron-is-dev": "^1.1.0",
     "electron-log": "^3.0.9",
     "electron-store": "^5.1.0",
     "electron-updater": "^4.2.0",
@@ -39,7 +44,7 @@
     "prop-types": "^15.7.2",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
-    "react-dropzone": "^10.2.0",
+    "react-dropzone": "^10.1.9",
     "react-reveal": "^1.2.2",
     "react-spinners": "^0.6.1",
     "react-spring": "^8.0.27",
@@ -50,13 +55,13 @@
   "build": {
     "appId": "com.pierrickleroy.parser",
     "copyright": "Copyright 2019 Pierrick Le Roy",
+    "files": [
+      "build",
+      "main"
+    ],
     "publish": {
       "provider": "github"
     },
-    "win": {
-      "certificateFile": "private/pierrickleroy.pfx",
-      "certificatePassword": "",
-      "publisherName": "pierrickleroy"
-    }
+    "icon": "./assets/icon.ico"
   }
 }
