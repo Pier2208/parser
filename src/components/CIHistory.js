@@ -52,12 +52,6 @@ const ItemBody = styled.div`
 
 `
 const CreatedAt = styled.div`
-    font-size: .6rem;
-    font-style: italic;
-    padding: 5px 0 0 0;
-    color: #a6a6a6;
-`
-const Jira = styled.div`
     font-size: .8rem;
     padding: 5px 0;
     color: #a6a6a6;
@@ -77,26 +71,13 @@ const CIHistory = ({ store }) => {
     const [csv, setCsv] = useState([])
 
     const handleNewXlsxToCsvDoneListener = async (e, fileObj) => {
+        console.log('fileobj', fileObj)
         const csvObj = (({ merchandName, dirpath, creationDate }) => ({ merchandName, dirpath, creationDate }))(fileObj)
         csvObj.id = uuidv4()
         csvObj.EBOS = ''
         const allcsv = await store.get('csv')
         await store.set('csv', [csvObj, ...allcsv])
         setCsv([csvObj, ...csv])
-    }
-
-    const handleNewJiraSuccessUpdateEBOSListener = async (e, fileObj) => {
-        const allcsv = await store.get('csv')
-        const itemToUpdateIndex = allcsv.findIndex(item => item.dirpath === fileObj.filepath)
-        if (itemToUpdateIndex < 0) return
-        const itemToUpdate = allcsv[itemToUpdateIndex]
-        const newItem = {
-            ...itemToUpdate,
-            EBOS: fileObj.issueKey
-        }
-        const newcsvs = allcsv.splice(itemToUpdateIndex, 1, newItem)
-        await store.set('csv', newcsvs)
-        setCsv(newcsvs)
     }
 
     useEffect(() => {
@@ -110,11 +91,6 @@ const CIHistory = ({ store }) => {
     useEffect(() => {
         ipcRenderer.on('new-xlsx-to-csv-done', handleNewXlsxToCsvDoneListener)
         return () => ipcRenderer.removeListener('new-xlsx-to-csv-done', handleNewXlsxToCsvDoneListener)
-    }, [csv])
-
-    useEffect(() => {
-        ipcRenderer.on('new-jira-success-update-EBOS', handleNewJiraSuccessUpdateEBOSListener)
-        return () => ipcRenderer.removeListener('new-jira-success-update-EBOS', handleNewJiraSuccessUpdateEBOSListener)
     }, [csv])
 
     const openDirectory = (e, directory) => {
@@ -137,7 +113,6 @@ const CIHistory = ({ store }) => {
                     <RemoveIcon icon='trash-alt' onClick={e => removeItem(e, item.id)} />
                 </ItemHead>
                 <ItemBody>
-                    <Jira>Jira created: {item.EBOS}</Jira>
                     <CreatedAt>{moment(item.creationDate).format("MMMM Do YYYY, h:mm a")}</CreatedAt>
                 </ItemBody>
             </Item>

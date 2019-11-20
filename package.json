@@ -1,13 +1,14 @@
 {
-  "name": "ci-parser",
+  "name": "parser_tool_belt",
   "version": "2.0.0",
-  "description": "Content Injection Parser",
+  "description": "Parser Tool Belt",
   "main": "main/index.js",
   "scripts": {
     "dev": "webpack-dev-server --hot --config webpack.dev.config.js --mode development",
     "electron": "electron .",
     "build": "webpack --config webpack.build.config.js --mode production",
-    "package": "npm run build && electron-builder -w"
+    "package": "npm run build && electron-builder -w",
+    "win-cert": "electron-builder create-self-signed-cert -p pierrickleroy"
   },
   "repository": "https://github.com/Pier2208/parser.git",
   "homepage": "https://github.com/Pier2208/parser.git",
@@ -53,15 +54,19 @@
     "xlsx": "^0.15.2"
   },
   "build": {
-    "appId": "com.pierrickleroy.parser",
+    "appId": "com.pierrickleroy.parser_tool_belt",
     "copyright": "Copyright 2019 Pierrick Le Roy",
     "files": [
       "build",
       "main"
     ],
-    "publish": {
-      "provider": "github"
-    },
-    "icon": "./assets/icon.ico"
+    "provider": "github",
+    "win": {
+      "certificateFile": "private/pierrickleroy.pfx",
+      "certificatePassword": "",
+      "publisherName": "pierrickleroy",
+      "verifyUpdateCodeSignature": "false",
+      "icon": "./assets/icon.ico"
+    }
   }
 }

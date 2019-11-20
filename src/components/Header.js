@@ -32,12 +32,13 @@ const HeaderTitle = styled.h1`
     margin: 0;
     font-size: 1.4rem;
     color: #FBF5F3;
+    text-transform: uppercase;
 `
 const Header = () => (
     <MainContainer>
         <Inner>
-            <Tada><Icon icon='rocket' /></Tada>
-           <Fade><HeaderTitle>Content Injection Parser</HeaderTitle></Fade>
+            <Tada><Icon icon='tools' /></Tada>
+           <Fade><HeaderTitle>Parser Tool Belt</HeaderTitle></Fade>
             <AppVersion />
         </Inner>
     </MainContainer>

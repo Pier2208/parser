@@ -86,6 +86,7 @@ ipcMain.on('new-xlsx-to-csv', (e, filepath) => {
         processToCSV,
         processJSON
     )(wsJSON)
+    console.log('fileObj-BE', fileObj)
     mainWindow.webContents.send('new-xlsx-to-csv-done', fileObj)
 })
 
@@ -94,7 +95,6 @@ ipcMain.on('new-jira', (e, data) => {
     createJira(data).then(fileObj => {
         if (fileObj.success) {
             mainWindow.webContents.send('new-jira-success', fileObj)
-            mainWindow.webContents.send('new-jira-success-update-EBOS', fileObj)
         } else {
             mainWindow.webContents.send('new-jira-error', 'Authentication failed. Re-enter password')
         }

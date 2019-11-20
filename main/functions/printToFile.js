@@ -22,12 +22,15 @@ module.exports.printToFile = file => {
     fs.mkdirSync(newDirMonth, { recursive: true })
     fs.mkdirSync(dirpath, { recursive: true })
     // write CI csv
-    fs.writeFileSync(`${dirpath}\\${file.filename}`, file.csv)
-    if (file.toAnvagD.length === 0) return
-    const xls = json2xls(file.toAnvagD)
-    // write anvag-d file
-    fs.writeFileSync(`${dirpath}\\${file.merchandName}_anvagD.xlsx`, xls, 'binary')
-
+    fs.writeFile(`${dirpath}\\${file.filename}`, file.csv, err => {
+        if (err) throw err
+        if (file.toAnvagD.length === 0) return
+        const xls = json2xls(file.toAnvagD)
+        // write anvag-d file
+        fs.writeFileSync(`${dirpath}\\${file.merchandName}_anvagD.xlsx`, xls, 'binary', err => {
+            if (err) throw err
+        })
+    })
     return {
         merchandName,
         dirpath,
