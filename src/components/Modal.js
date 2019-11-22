@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import { ipcRenderer } from 'electron'
 import { useSpring, animated } from 'react-spring'
@@ -57,12 +57,24 @@ const ExtraLabel = styled.span`
 `
 
 
-const Modal = ({ setIsModalOpen, isModalOpen, store, setError, error, files, processing, setProcessing }) => {
+const Modal = ({ setIsModalOpen, store, setError, error, files, setProcessing }) => {
     const [password, setPassword] = useState('')
     const [isSavePasswordChecked, setIsSavePasswordChecked] = useState(false)
 
+    const closeAndValidateOnPressEnter = e => {
+        if(e.keyCode === 13) {
+            handleSubmit()
+        }
+    }
+
+    useEffect(() => {
+        document.addEventListener("keydown", closeAndValidateOnPressEnter)
+        return () => document.removeEventListener("keydown", closeAndValidateOnPressEnter)
+    })
+
     const closeModal = () => {
         setIsModalOpen(false)
+        setProcessing(false)
         setError('')
     }
 
@@ -74,10 +86,7 @@ const Modal = ({ setIsModalOpen, isModalOpen, store, setError, error, files, pro
         if (isSavePasswordChecked) {
             store.set('JiraPassword', password)
         }
-        setIsModalOpen(false)
-        setProcessing(true)
-        setError('')
-        console.log(`Creating Jira with password ${password}`)
+        closeModal()
         // create JIRA
         const data = {
             filename: files[0].name,

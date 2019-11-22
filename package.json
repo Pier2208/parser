@@ -1,6 +1,6 @@
 {
-  "name": "parser_tool_belt",
-  "version": "2.0.0",
+  "name": "parser-tool-belt",
+  "version": "2.0.2",
   "description": "Parser Tool Belt",
   "main": "main/index.js",
   "scripts": {
@@ -8,7 +8,8 @@
     "electron": "electron .",
     "build": "webpack --config webpack.build.config.js --mode production",
     "package": "npm run build && electron-builder -w",
-    "win-cert": "electron-builder create-self-signed-cert -p pierrickleroy"
+    "win-cert": "electron-builder create-self-signed-cert -p pierrickleroy",
+    "release": "npm run build && electron-builder -w -p 'onTagOrDraft'"
   },
   "repository": "https://github.com/Pier2208/parser.git",
   "homepage": "https://github.com/Pier2208/parser.git",
@@ -49,24 +50,27 @@
     "react-reveal": "^1.2.2",
     "react-spinners": "^0.6.1",
     "react-spring": "^8.0.27",
+    "sanitize-filename": "^1.6.3",
     "styled-components": "^4.4.1",
     "uuid": "^3.3.3",
     "xlsx": "^0.15.2"
   },
   "build": {
-    "appId": "com.pierrickleroy.parser_tool_belt",
+    "appId": "com.pierrickleroy.parser-tool-belt",
     "copyright": "Copyright 2019 Pierrick Le Roy",
     "files": [
       "build",
       "main"
     ],
-    "provider": "github",
+    "publish": {
+      "provider": "github"
+    },
     "win": {
       "certificateFile": "private/pierrickleroy.pfx",
       "certificatePassword": "",
       "publisherName": "pierrickleroy",
       "verifyUpdateCodeSignature": "false",
-      "icon": "./assets/icon.ico"
+      "icon": "assets/icon.ico"
     }
   }
 }

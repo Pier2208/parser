@@ -15,7 +15,7 @@ const Container = styled.div`
     cursor: pointer;
     transition: all .3s ease-in-out;
     ${({ screenActive }) => screenActive && css`
-        background-color: #FFAE03;
+        background-color: #e2574c;
         transform: scale(1.4) rotateY(180deg);
     `}
 `
@@ -24,7 +24,7 @@ const Icon = styled(FontAwesomeIcon)`
     color: #fff;
     transition: transform .3s;
     ${({ screenActive }) => screenActive && css`
-        background-color: #FFAE03;
+        background-color: #e2574c;
         transform: rotateY(180deg);
     `}
 `

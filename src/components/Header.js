@@ -37,7 +37,7 @@ const HeaderTitle = styled.h1`
 const Header = () => (
     <MainContainer>
         <Inner>
-            <Tada><Icon icon='tools' /></Tada>
+            <Tada><Icon icon='wrench' /></Tada>
            <Fade><HeaderTitle>Parser Tool Belt</HeaderTitle></Fade>
             <AppVersion />
         </Inner>

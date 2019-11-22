@@ -4,12 +4,16 @@ const path = require('path')
 const isDev = require('electron-is-dev')
 const windowStateKeeper = require('electron-window-state')
 
+// updater
+const updater = require('./updater')
+
 // import functions to process csv
 const { excelToJson, compose } = require('./functions/utilities')
 const { processJSON } = require('./functions/processJSON')
 const { processToCSV } = require('./functions/processToCSV')
 const { printToFile } = require('./functions/printToFile')
 const { createJira } = require('./functions/createJira')
+
 
 
 let mainWindow
@@ -45,12 +49,17 @@ function createWindow() {
     })
 
     mainWindow.loadURL(isDev ? 'http://localhost:8080' : `file://${path.join(__dirname, '../build/index.html')}`)
-    mainWindow.webContents.openDevTools()
+    // mainWindow.webContents.openDevTools()
 
     // Don't show until we are ready and loaded
     mainWindow.once('ready-to-show', () => {
         mainWindow.show()
     })
+
+    // check for updates
+    if(!isDev) {
+        setTimeout(updater, 2000)
+    }
 
     // Emitted when the window is closed.
     mainWindow.on('closed', function () {

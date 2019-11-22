@@ -20,7 +20,7 @@ const HistoryTitle = styled.h4`
     font-size: 1.2rem;
     font-weight: 300;
     padding-left: 5px;
-    border-left: 2px solid #FFAE03;
+    border-left: 2px solid #e2574c;
 `
 
 const Item = styled.div`
@@ -33,7 +33,7 @@ const Item = styled.div`
     font-size: 0.8rem;
     transition: all .3s ease-in-out;
     &:hover {
-        border: 1px solid #FFAE03; 
+        border: 1px solid #00A6A6; 
     }
 `
 

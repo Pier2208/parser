@@ -7,19 +7,16 @@ const { PAYMENTS_METHS, LANGUAGES } = require('../data')
 
 module.exports = {
     hoursFormater: hours => {
+        console.log(hours)
         let oneliner = ''
-        if (Object.values(hours).reduce((acc, val) => acc + val, []).length === 0) {
-            return oneliner
-        } else {
-            for (let key in hours) {
-                oneliner += `${key.substr(-3).toLowerCase()}##${hours[key].replace('-', '##')}|`
-            }
-            let newOneliner = oneliner.substr(0, oneliner.length - 1)
-            if (newOneliner === 'mon##00:00##00:00|tue##00:00##00:00|wed##00:00##00:00|thu##00:00##00:00|fri##00:00##00:00|sat##00:00##00:00|sun##00:00##00:00') {
-                newOneliner = 'Labels##24/7'
-            }
-            return newOneliner
+        for (let key in hours) {
+            oneliner += hours[key] ? `${key.substr(-3).toLowerCase()}##${hours[key].replace('-', '##')}|` : ''
         }
+        let newOneliner = oneliner.substr(0, oneliner.length - 1)
+        if (newOneliner === 'mon##00:00##00:00|tue##00:00##00:00|wed##00:00##00:00|thu##00:00##00:00|fri##00:00##00:00|sat##00:00##00:00|sun##00:00##00:00') {
+            newOneliner = 'Labels##24/7'
+        }
+        return newOneliner
     },
 
     paymentsFormater: payments => {
@@ -95,7 +92,7 @@ module.exports = {
 
     stringFormatter: str => str ? str.replace(/, /g, ',').split(',').join('|') : '',
 
-    numberFormatter: num => (num / 1000).toFixed(3),
+    numberFormatter: num => (num / 1000).toFixed(3).toString(),
 
     extractMerchandName: filename => {
         const start_pos = filename.indexOf('_') + 1;

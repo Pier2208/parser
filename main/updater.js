@@ -18,7 +18,7 @@ module.exports = () => {
         dialog.showMessageBox({
             type: 'info',
             title: 'Update',
-            message: `A new version ${versionInfo.version} is available. Please close and restart the program`,
+            message: `A new version ${versionInfo.version} is available. Please close and restart the program.`,
             buttons: ['OK']
         }, result => {
             // Install and restart if button 0 (OK)

@@ -1,6 +1,5 @@
 import React from 'react'
 import styled from 'styled-components'
-import Fade from 'react-reveal/Fade'
 
 import IconContainer from './IconContainer'
 import MenuTitle from './MenuTitle'

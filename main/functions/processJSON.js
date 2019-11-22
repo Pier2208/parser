@@ -1,3 +1,4 @@
+const sanitize = require("sanitize-filename")
 const {
     hoursFormater,
     paymentsFormater,
@@ -14,7 +15,8 @@ module.exports.processJSON = file => {
     const transformed_JSON = []
     const toAnvagD = []
     let count = 0
-    const merchandName = file[0]['Name EN'] ? file[0]['Name EN'].replace(/[!@#$%?&*().]/g,'') : file[0]['Name FR'].replace(/[!@#$%?&*().]/g,'')
+    let merchandName = file[0]['Name EN'] ? sanitize(file[0]['Name EN']) : sanitize(file[0]['Name FR'])
+  
     for (let obj of file) {
         if (obj.ACTION === 'UPDATE') {
             count++
@@ -166,7 +168,7 @@ module.exports.processJSON = file => {
             toAnvagD.push(obj)
         }
     }
-    const filename = `ContentInjection_${merchandName}_${numberFormatter(count)}K_UTF-8.csv`
+    let filename = `ContentInjection_${merchandName}_${numberFormatter(count)}K_UTF-8.csv`
     return [
         transformed_JSON, // array of objects (CI)
         toAnvagD, // array of objects (anvag-D)
