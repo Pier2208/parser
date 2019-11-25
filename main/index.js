@@ -15,7 +15,6 @@ const { printToFile } = require('./functions/printToFile')
 const { createJira } = require('./functions/createJira')
 
 
-
 let mainWindow
 
 // Temporary fix broken high-dpi scale factor on Windows (125% scaling)
@@ -49,7 +48,7 @@ function createWindow() {
     })
 
     mainWindow.loadURL(isDev ? 'http://localhost:8080' : `file://${path.join(__dirname, '../build/index.html')}`)
-    // mainWindow.webContents.openDevTools()
+    mainWindow.webContents.openDevTools()
 
     // Don't show until we are ready and loaded
     mainWindow.once('ready-to-show', () => {
@@ -58,7 +57,7 @@ function createWindow() {
 
     // check for updates
     if(!isDev) {
-        setTimeout(updater, 2000)
+        setTimeout(updater, 1500)
     }
 
     // Emitted when the window is closed.
@@ -95,7 +94,6 @@ ipcMain.on('new-xlsx-to-csv', (e, filepath) => {
         processToCSV,
         processJSON
     )(wsJSON)
-    console.log('fileObj-BE', fileObj)
     mainWindow.webContents.send('new-xlsx-to-csv-done', fileObj)
 })
 
@@ -105,7 +103,7 @@ ipcMain.on('new-jira', (e, data) => {
         if (fileObj.success) {
             mainWindow.webContents.send('new-jira-success', fileObj)
         } else {
-            mainWindow.webContents.send('new-jira-error', 'Authentication failed. Re-enter password')
+            mainWindow.webContents.send('new-jira-error', 'Authentication failed. Re-enter password.')
         }
     }).catch(err => console.log(err))
 })

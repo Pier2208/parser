@@ -1,6 +1,6 @@
 import React from 'react'
 import Dropzone from 'react-dropzone'
-import styled, { css } from 'styled-components'
+import styled from 'styled-components'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 const getColor = props => {

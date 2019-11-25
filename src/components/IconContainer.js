@@ -1,9 +1,11 @@
 import React from 'react'
 import styled, { css } from 'styled-components'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { Link } from 'react-router-dom'
+import Bounce from 'react-reveal/Bounce'
 
 
-const Container = styled.div`
+const Container = styled(Link)`
     display: flex;
     justify-content: center;
     align-items: center;
@@ -13,32 +15,42 @@ const Container = styled.div`
     border-radius: 50%;
     margin-right: 1.3rem;
     cursor: pointer;
+    text-decoration: none;
+    outline: none;
     transition: all .3s ease-in-out;
-    ${({ screenActive }) => screenActive && css`
+    ${({ isActive }) => isActive && css`
         background-color: #e2574c;
-        transform: scale(1.4) rotateY(180deg);
+        transform: scale(1.4);
     `}
 `
 const Icon = styled(FontAwesomeIcon)`
     font-size: 1.6rem;
     color: #fff;
     transition: transform .3s;
-    ${({ screenActive }) => screenActive && css`
+    ${({ isActive }) => isActive && css`
         background-color: #e2574c;
-        transform: rotateY(180deg);
     `}
 `
 
-const IconContainer = ({ onClick, icon, screenActive }) => {
-    return (
+const IconContainer = ({ onClick, icon, to, isActive }) => (
+    isActive ?
+        <Bounce>
+            <Container
+                to={to}
+                onClick={onClick}
+                isActive={isActive}
+            >
+                <Icon icon={icon} />
+            </Container>
+        </Bounce> :
         <Container
+            to={to}
             onClick={onClick}
-            screenActive={screenActive}
+            isActive={isActive}
         >
-            <Icon icon={icon} screenActive={screenActive} />
+            <Icon icon={icon} />
         </Container>
-    )
 
-}
+)
 
 export default IconContainer

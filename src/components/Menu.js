@@ -12,29 +12,29 @@ const MenuContainer = styled.div`
     align-items: center;
 `
 
-const Menu = ({ screenActive, setScreenActive, setFiles }) => {
+const Menu = ({ setFiles, screenTitle, path }) => {
     const renderMenuTitle = str => <MenuTitle>{str}</MenuTitle>
 
     return (
         <MenuContainer>
             <IconContainer
                 icon='file-csv'
-                screenActive={screenActive === 'Content Injection' ? true : false}
+                to='/'
+                isActive={path === '/'}
                 onClick={() => {
-                    setScreenActive('Content Injection')
                     setFiles([])
                 }}
             />
 
             <IconContainer
                 icon={['fab', 'jira']}
-                screenActive={screenActive === 'Create Jira' ? true : false}
+                to='/jira'
+                isActive={path === '/jira'}
                 onClick={() => {
-                    setScreenActive('Create Jira')
                     setFiles([])
                 }}
             />
-            {renderMenuTitle(screenActive)}
+            {renderMenuTitle(screenTitle)}
         </MenuContainer>
     )
 }

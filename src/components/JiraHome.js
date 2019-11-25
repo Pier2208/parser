@@ -4,6 +4,19 @@ import styled from 'styled-components'
 import DragnDrop from './DragnDrop'
 import CustomButton from './Button'
 
+import JiraHistory from './JiraHistory'
+import Menu from './Menu'
+
+
+const MainContainer = styled.div`
+  display: flex;
+  justify-content: space-around;
+`
+const ContainerViews = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 55%;
+`
 const Buttons = styled.div`
     display: flex;
     justify-content: flex-end;
@@ -11,8 +24,7 @@ const Buttons = styled.div`
 `
 
 
-const JiraHome = ({ setIsModalOpen, files, setFiles, store, processing, setProcessing }) => {
-
+const JiraHome = ({ setIsModalOpen, files, setFiles, store, processing, setProcessing, screenTitle, ...routerProps }) => {
     const handleNewJiraSuccessListener = (e, fileObj) => {
         setProcessing(false)
         setFiles([])
@@ -47,25 +59,29 @@ const JiraHome = ({ setIsModalOpen, files, setFiles, store, processing, setProce
     }
 
     return (
-        <>
-            <DragnDrop
-                setFiles={setFiles}
-                files={files}
-                acceptedFileTypes=''
-            />
-            <Buttons>
-                {
-                    files.length > 0
-                    && <CustomButton color='reset' onClick={reset}>Cancel</CustomButton>
-                }
-                <CustomButton
-                    color='process'
-                    onClick={handleSubmit}
-                    disabled={processing || files.length === 0}
-                >{processing ? 'Processing' : 'CREATE JIRA'}
-                </CustomButton>
-            </Buttons>
-        </>
+        <MainContainer>
+            <JiraHistory store={store} />
+            <ContainerViews>
+                <Menu setFiles={setFiles} screenTitle={screenTitle} path={routerProps.location.pathname} />
+                <DragnDrop
+                    setFiles={setFiles}
+                    files={files}
+                    acceptedFileTypes=''
+                />
+                <Buttons>
+                    {
+                        files.length > 0
+                        && <CustomButton color='reset' onClick={reset}>Cancel</CustomButton>
+                    }
+                    <CustomButton
+                        color='process'
+                        onClick={handleSubmit}
+                        disabled={processing || files.length === 0}
+                    >{processing ? 'Processing' : 'CREATE JIRA'}
+                    </CustomButton>
+                </Buttons>
+            </ContainerViews>
+        </MainContainer>
     )
 }
 
