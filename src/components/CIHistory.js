@@ -121,7 +121,7 @@ const CIHistory = ({ store }) => {
 
     return (
         <Container>
-            <HistoryTitle>Content Injection History</HistoryTitle>
+            <HistoryTitle><Fade>Content Injection History</Fade></HistoryTitle>
             {csv.length > 0 && renderCsvLinks(csv)}
         </Container>
     )

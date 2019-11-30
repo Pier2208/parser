@@ -5,7 +5,6 @@ const FormData = require('form-data')
 const { extractMerchandName } = require('./utilities')
 
 module.exports.createJira = async ({ filename, filepath, password }) => {
-    // get merchandName/username
     const merchandName = extractMerchandName(filename)
     const username = os.userInfo().username
 
@@ -51,8 +50,8 @@ module.exports.createJira = async ({ filename, filepath, password }) => {
                 'Authorization': 'Basic ' + Buffer.from(username + ":" + password).toString('base64')
             }
         })
-        const jiraResponse = await res.json()
-        console.log('jira', jiraResponse)
+        const jiraResponseText = await res.text()
+        const jiraResponse = await JSON.parse(jiraResponseText)
     
         const issueId = jiraResponse.id
         const issueKey = jiraResponse.key

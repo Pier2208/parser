@@ -48,7 +48,7 @@ function createWindow() {
     })
 
     mainWindow.loadURL(isDev ? 'http://localhost:8080' : `file://${path.join(__dirname, '../build/index.html')}`)
-    mainWindow.webContents.openDevTools()
+    // mainWindow.webContents.openDevTools()
 
     // Don't show until we are ready and loaded
     mainWindow.once('ready-to-show', () => {

@@ -7,7 +7,6 @@ const { PAYMENTS_METHS, LANGUAGES } = require('../data')
 
 module.exports = {
     hoursFormater: hours => {
-        console.log(hours)
         let oneliner = ''
         for (let key in hours) {
             oneliner += hours[key] ? `${key.substr(-3).toLowerCase()}##${hours[key].replace('-', '##')}|` : ''

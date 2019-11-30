@@ -127,7 +127,7 @@ const JiraHistory = ({ store }) => {
 
     return (
         <Container>
-            <HistoryTitle>Jira History</HistoryTitle>
+            <HistoryTitle><Fade>Jira History</Fade></HistoryTitle>
             {jira.length > 0 && renderJiraLinks(jira)}
         </Container>
     )
