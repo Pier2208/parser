@@ -41,7 +41,7 @@
     "form-data": "^3.0.0",
     "json2csv": "^4.5.4",
     "json2xls": "^0.1.2",
-    "moment": "^2.24.0",
+    "moment": "^2.29.2",
     "node-fetch": "^2.6.0",
     "prop-types": "^15.7.2",
     "react": "^16.12.0",
